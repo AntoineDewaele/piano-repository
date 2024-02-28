@@ -1,0 +1,26 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL") // uses a direct connection
+}
+
+model sheets {
+  id          String     @default(cuid()) @id
+  title       String
+  author      String
+  level       SheetLevel
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @updatedAt
+}
+
+enum SheetLevel {
+  EASY
+  MEDIUM
+  HARD
+}
